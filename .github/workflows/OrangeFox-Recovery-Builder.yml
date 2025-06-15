@@ -41,12 +41,14 @@ jobs:
 
       - name: Sync OrangeFox
         run: |
-          mkdir -p OrangeFox
-          cd OrangeFox
-          git clone https://gitlab.com/OrangeFox/sync.git
-          ./sync/setup.sh --branch ${{ github.event.inputs.MANIFEST_BRANCH }} --path fox_${{ github.event.inputs.MANIFEST_BRANCH }}
-          cd fox_${{ github.event.inputs.MANIFEST_BRANCH }}
-
+           mkdir -p OrangeFox
+           cd OrangeFox
+           git clone https://gitlab.com/OrangeFox/sync.git
+           cd sync
+           chmod +x orangefox_sync.sh
+           ./orangefox_sync.sh --branch ${{ github.event.inputs.MANIFEST_BRANCH }} --path ../fox_${{ github.event.inputs.MANIFEST_BRANCH }}
+           cd ../fox_${{ github.event.inputs.MANIFEST_BRANCH }}
+    
       - name: Clone Device Tree
         run: |
           cd OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }}
